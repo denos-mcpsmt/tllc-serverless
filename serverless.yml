@@ -19,7 +19,7 @@ provider:
         - "dynamodb:Scan*"
         - "dynamodb:UpdateItem"
         - "dynamodb:DeleteItem"
-      Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-customerTable-${sls:stage}
+      Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-*Table-${sls:stage}
 
 functions:
   createCustomer:
@@ -33,6 +33,42 @@ functions:
     events: 
       - httpApi:
           path: /
+          method: get
+  createStudent:
+    handler: createStudent.createStudent
+    events:
+      - httpApi:
+          path: /student
+          method: post
+  getStudent:
+    handler: getStudent.getStudent
+    events:
+      - httpApi:
+          path: /student
+          method: get
+  createStaff:
+    handler: createStaff.createStaff
+    events:
+      - httpApi:
+          path: /staff
+          method: post
+  getStaff:
+    handler: getStaff.getStaff
+    events:
+      - httpApi:
+          path: /staff
+          method: get
+  createClass:
+    handler: createClass.createClass
+    events:
+      - httpApi:
+          path: /classes
+          method: post
+  getClasses:
+    handler: getClasses.getClasses
+    events:
+      - httpApi:
+          path: /classes
           method: get
 resources:
   Resources:
